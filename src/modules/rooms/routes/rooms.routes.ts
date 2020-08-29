@@ -21,4 +21,6 @@ router.patch(
   roomController.updateHost,
 );
 
+router.patch('/:roomId/join', ensuredAuthenticated, roomController.join);
+
 export default router;

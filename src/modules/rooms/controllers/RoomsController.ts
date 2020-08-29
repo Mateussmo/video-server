@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 import CreateRoomService from '../services/CreateRoomService';
 import UpdateHostService from '../services/UpdateHostService';
+import JoinRoomService from '../services/JoinRoomService';
 
 class RoomsController {
   public async store(request: Request, response: Response): Promise<Response> {
@@ -35,6 +36,16 @@ class RoomsController {
     });
 
     return response.status(200).json({ hostUpdated });
+  }
+
+  public async join(request: Request, response: Response): Promise<Response> {
+    const { roomId } = request.params;
+
+    const joinRoom = new JoinRoomService();
+
+    const room = await joinRoom.execute({ userId: response.locals.id, roomId });
+
+    return response.status(200).json({ room });
   }
 }
 
