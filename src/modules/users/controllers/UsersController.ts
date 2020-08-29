@@ -7,6 +7,7 @@ import AuthenticateUserService from '../services/AuthenticateUserService';
 import UpdateUserService from '../services/UpdateUserService';
 import DeleteUserService from '../services/DeleteUserService';
 import ListAllUsersService from '../services/ListAllUsersServices';
+import FindOneUserService from '../services/FindOneUserService';
 
 class UsersController {
   public async store(request: Request, response: Response): Promise<Response> {
@@ -95,8 +96,23 @@ class UsersController {
 
     const users = await listAllUsers.execute();
 
-    return response.status(201).json({
+    return response.status(200).json({
       users,
+    });
+  }
+
+  public async findOne(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { username } = request.params;
+    const findOneUser = new FindOneUserService();
+
+    const user = await findOneUser.execute({ username });
+
+    return response.status(200).json({
+      username: user.username,
+      mobileToken: user.mobileToken,
     });
   }
 }

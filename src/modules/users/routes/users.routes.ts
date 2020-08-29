@@ -27,4 +27,6 @@ router.delete('/:userId', ensuredAuthenticated, usersController.delete);
 
 router.get('/', usersController.find);
 
+router.get('/:username', usersController.findOne);
+
 export default router;
