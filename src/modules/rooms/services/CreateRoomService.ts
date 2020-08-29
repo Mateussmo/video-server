@@ -1,4 +1,3 @@
-import { response } from 'express';
 import AppError from '../../../shared/errors/AppError';
 import Rooms, { IRoomsInterface } from '../schemas/Rooms';
 import Users from '../../users/schemas/Users';
