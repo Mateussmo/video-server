@@ -11,7 +11,7 @@ interface IRequestDTO {
   username: string;
 }
 
-class ListAllUsersService {
+class FindOneUsersService {
   public async execute({ username }: IRequestDTO): Promise<IUserInterface> {
     const user = await Users.findOne({ username });
 
@@ -21,4 +21,4 @@ class ListAllUsersService {
   }
 }
 
-export default ListAllUsersService;
+export default FindOneUsersService;

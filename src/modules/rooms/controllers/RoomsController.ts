@@ -5,6 +5,7 @@ import UpdateHostService from '../services/UpdateHostService';
 import JoinRoomService from '../services/JoinRoomService';
 import LeaveRoomService from '../services/LeaveRoomService';
 import FindOneRoomService from '../services/FindOneRoomService';
+import FindRoomsService from '../services/FindRoomsService';
 
 class RoomsController {
   public async store(request: Request, response: Response): Promise<Response> {
@@ -74,6 +75,16 @@ class RoomsController {
     const room = await findOne.execute({ roomId });
 
     return response.status(200).json({ room });
+  }
+
+  public async find(request: Request, response: Response): Promise<Response> {
+    const { username } = request.params;
+
+    const find = new FindRoomsService();
+
+    const rooms = await find.execute({ username });
+
+    return response.status(200).json({ rooms });
   }
 }
 

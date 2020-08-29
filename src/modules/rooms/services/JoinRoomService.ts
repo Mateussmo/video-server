@@ -13,6 +13,8 @@ class JoinRoomService {
   }: IRequestDTO): Promise<IRoomsInterface> {
     const room = await Rooms.findOne({ _id: roomId });
 
+    // TODO: Utilizar o limite da sala da capacidade
+
     if (!room) throw new AppError('This Room does not exists!', 404);
 
     if (room.users?.includes(userId))

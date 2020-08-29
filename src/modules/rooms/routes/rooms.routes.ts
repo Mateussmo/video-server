@@ -27,4 +27,6 @@ router.patch('/:roomId/leave', ensuredAuthenticated, roomController.leave);
 
 router.get('/:roomId', roomController.findOne);
 
+router.get('/user/:username', roomController.find);
+
 export default router;
