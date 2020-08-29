@@ -5,6 +5,7 @@ import UserService from '../services/CreateUserService';
 import GenerateTokenService from '../services/GenerateTokenService';
 import AuthenticateUserService from '../services/AuthenticateUserService';
 import UpdateUserService from '../services/UpdateUserService';
+import DeleteUserService from '../services/DeleteUserService';
 
 class UsersController {
   public async store(request: Request, response: Response): Promise<Response> {
@@ -73,6 +74,18 @@ class UsersController {
         username: user.username,
         mobileToken: user.mobileToken,
       },
+    });
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { userId } = request.params;
+
+    const deleteUser = new DeleteUserService();
+
+    await deleteUser.execute({ id: userId });
+
+    return response.status(201).json({
+      message: 'User deleted successfully!',
     });
   }
 }

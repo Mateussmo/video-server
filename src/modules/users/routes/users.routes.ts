@@ -23,4 +23,6 @@ router.patch(
   usersController.update,
 );
 
+router.delete('/:userId', ensuredAuthenticated, usersController.delete);
+
 export default router;
