@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import AppError from '../../../shared/errors/AppError';
 import UserService from '../services/CreateUserService';
 import GenerateTokenService from '../services/GenerateTokenService';
+import AuthenticateUserService from '../services/AuthenticateUserService';
 
 class UsersController {
   public async store(request: Request, response: Response): Promise<Response> {
@@ -26,6 +27,29 @@ class UsersController {
         id: userCreated._id,
         username: userCreated.username,
         mobileToken: userCreated.mobileToken,
+      },
+      token,
+    });
+  }
+
+  public async authenticate(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { username, password } = request.body;
+
+    const authenticateUser = new AuthenticateUserService();
+    const generateToken = new GenerateTokenService();
+
+    const user = await authenticateUser.execute({ username, password });
+
+    const token = await generateToken.execute({ id: user._id });
+
+    return response.status(201).json({
+      user: {
+        id: user._id,
+        username: user.username,
+        mobileToken: user.mobileToken,
       },
       token,
     });
