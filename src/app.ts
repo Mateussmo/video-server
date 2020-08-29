@@ -1,4 +1,4 @@
-import { config } from 'dotenv';
+import './bootstrap';
 
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
@@ -6,7 +6,7 @@ import 'express-async-errors';
 import routes from './routes/index';
 import AppError from './shared/errors/AppError';
 
-config({ path: '.env' });
+import './shared/database';
 
 const app = express();
 

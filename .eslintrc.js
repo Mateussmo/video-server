@@ -23,6 +23,7 @@ module.exports = {
   rules: {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    'class-methods-use-this': 'off',
   },
   settings: {
     'import/resolver': {
