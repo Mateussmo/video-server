@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import AppError from '../../../shared/errors/AppError';
 import Users from '../schemas/Users';
 
@@ -21,7 +22,7 @@ class CreateUserService {
 
     const userCreated = await Users.create({
       username,
-      password,
+      password: await bcrypt.hash(password, 10),
       mobileToken,
     });
 
