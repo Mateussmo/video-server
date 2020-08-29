@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import CreateRoomService from '../services/CreateRoomService';
 import UpdateHostService from '../services/UpdateHostService';
 import JoinRoomService from '../services/JoinRoomService';
+import LeaveRoomService from '../services/LeaveRoomService';
 
 class RoomsController {
   public async store(request: Request, response: Response): Promise<Response> {
@@ -44,6 +45,19 @@ class RoomsController {
     const joinRoom = new JoinRoomService();
 
     const room = await joinRoom.execute({ userId: response.locals.id, roomId });
+
+    return response.status(200).json({ room });
+  }
+
+  public async leave(request: Request, response: Response): Promise<Response> {
+    const { roomId } = request.params;
+
+    const leaveRoom = new LeaveRoomService();
+
+    const room = await leaveRoom.execute({
+      userId: response.locals.id,
+      roomId,
+    });
 
     return response.status(200).json({ room });
   }

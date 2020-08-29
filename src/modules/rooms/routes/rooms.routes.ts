@@ -23,4 +23,6 @@ router.patch(
 
 router.patch('/:roomId/join', ensuredAuthenticated, roomController.join);
 
+router.patch('/:roomId/leave', ensuredAuthenticated, roomController.leave);
+
 export default router;

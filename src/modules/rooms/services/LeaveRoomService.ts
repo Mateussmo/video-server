@@ -6,7 +6,7 @@ interface IRequestDTO {
   roomId: string;
 }
 
-class JoinRoomService {
+class LeaveRoomService {
   public async execute({
     userId,
     roomId,
@@ -15,10 +15,14 @@ class JoinRoomService {
 
     if (!room) throw new AppError('This Room does not exists!', 404);
 
-    if (room.users?.includes(userId))
-      throw new AppError('This user is Already in this Room!', 409);
+    if (!room.users?.includes(userId))
+      throw new AppError('This user is not in this Room!', 400);
 
-    room.users?.push(userId);
+    const index = room.users.indexOf(userId);
+
+    if (index > -1) {
+      room.users?.splice(index, 1);
+    }
 
     await room.save();
 
@@ -26,4 +30,4 @@ class JoinRoomService {
   }
 }
 
-export default JoinRoomService;
+export default LeaveRoomService;
