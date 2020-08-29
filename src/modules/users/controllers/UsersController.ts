@@ -4,6 +4,7 @@ import AppError from '../../../shared/errors/AppError';
 import UserService from '../services/CreateUserService';
 import GenerateTokenService from '../services/GenerateTokenService';
 import AuthenticateUserService from '../services/AuthenticateUserService';
+import UpdateUserService from '../services/UpdateUserService';
 
 class UsersController {
   public async store(request: Request, response: Response): Promise<Response> {
@@ -52,6 +53,26 @@ class UsersController {
         mobileToken: user.mobileToken,
       },
       token,
+    });
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { password, mobileToken } = request.body;
+
+    const updateUser = new UpdateUserService();
+
+    const user = await updateUser.execute({
+      id: response.locals.id,
+      password,
+      mobileToken,
+    });
+
+    return response.status(201).json({
+      user: {
+        id: user.id,
+        username: user.username,
+        mobileToken: user.mobileToken,
+      },
     });
   }
 }
