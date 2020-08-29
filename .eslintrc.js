@@ -24,6 +24,7 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'class-methods-use-this': 'off',
+    'no-underscore-dangle': 'off',
   },
   settings: {
     'import/resolver': {

@@ -1,6 +1,7 @@
 import { model, Document, Schema } from 'mongoose';
 
 export interface IUsersInterface extends Document {
+  id: string;
   username: string;
   password: string;
   mobileToken?: string;
@@ -23,6 +24,7 @@ const UsersSchema = new Schema(
   {
     timestamps: true,
     collection: 'Users',
+    versionKey: false,
   },
 );
 

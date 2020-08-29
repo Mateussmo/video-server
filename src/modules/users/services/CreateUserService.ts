@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import AppError from '../../../shared/errors/AppError';
-import Users from '../schemas/Users';
+import Users, { IUsersInterface } from '../schemas/Users';
 
 interface IRequestDTO {
   username: string;
@@ -13,7 +13,7 @@ class CreateUserService {
     username,
     password,
     mobileToken,
-  }: IRequestDTO): Promise<IRequestDTO> {
+  }: IRequestDTO): Promise<IUsersInterface> {
     const user = await Users.findOne({ username });
 
     if (user) {
