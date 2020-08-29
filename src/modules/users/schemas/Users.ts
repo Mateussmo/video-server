@@ -1,7 +1,6 @@
 import { model, Document, Schema } from 'mongoose';
 
 export interface IUsersInterface extends Document {
-  _id: string;
   username: string;
   password: string;
   mobileToken?: string;
@@ -9,9 +8,6 @@ export interface IUsersInterface extends Document {
 
 const UsersSchema = new Schema(
   {
-    _id: {
-      type: String,
-    },
     username: {
       type: String,
       required: true,

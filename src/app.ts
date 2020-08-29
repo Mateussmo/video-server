@@ -5,6 +5,7 @@ import 'express-async-errors';
 
 import routes from './routes/index';
 import AppError from './shared/errors/AppError';
+import ValidationError from './shared/errors/ValidationError';
 
 import './shared/database';
 
@@ -14,9 +15,8 @@ app.use(express.json());
 app.use(routes);
 
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
-  if (err instanceof AppError) {
+  if (err instanceof AppError || err instanceof ValidationError) {
     return response.status(err.statusCode).json({
-      status: 'error',
       message: err.message,
     });
   }
@@ -24,7 +24,6 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   console.error(err);
 
   return response.status(500).json({
-    status: 'error',
     message: 'Internal server error',
   });
 });
