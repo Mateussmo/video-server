@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import UsersController from '../controllers/UsersController';
 import CreateUserValidation from '../ middlewares/CreateUserValidation';
+import UpdatedUserValidation from '../ middlewares/UpdateUserValidation';
 import ensuredAuthenticated from '../../../shared/middlewares/EnsureAuthenticated';
 
 const router = Router();
@@ -15,6 +16,11 @@ router.post(
   usersController.authenticate,
 );
 
-router.patch('/', ensuredAuthenticated, usersController.update);
+router.patch(
+  '/',
+  ensuredAuthenticated,
+  UpdatedUserValidation,
+  usersController.update,
+);
 
 export default router;
