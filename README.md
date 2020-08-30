@@ -142,5 +142,11 @@ Note: mobileToken is not required
 
 ### About the project 
 
-The Application were made with express + typescript. It was used Domain Driven Design to development it with Tests unit and integrations.
+The Application were made with express + typescript. 
+
+It was used Domain Driven Design to development it with Tests unit and integrations.
+
 A Dockerfile was created to do the deploy easier. 
+
+
+
