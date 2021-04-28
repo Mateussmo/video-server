@@ -11,14 +11,15 @@ import FindOneUserService from '../services/FindOneUserService';
 
 class UsersController {
   public async store(request: Request, response: Response): Promise<Response> {
-    const { email, password } = request.body;
+    const { username, password, mobileToken } = request.body;
 
     const createUser = new UserService();
     const generateToken = new GenerateTokenService();
 
     const userCreated = await createUser.execute({
-      email,
+      username,
       password,
+      mobileToken,
     });
 
     if (!userCreated) throw new AppError('An Error Ocurred', 500);
@@ -28,7 +29,8 @@ class UsersController {
     return response.status(201).json({
       user: {
         id: userCreated._id,
-        email: userCreated.email,
+        username: userCreated.username,
+        mobileToken: userCreated.mobileToken,
       },
       token,
     });
@@ -38,38 +40,41 @@ class UsersController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { email, password } = request.body;
+    const { username, password } = request.body;
 
     const authenticateUser = new AuthenticateUserService();
     const generateToken = new GenerateTokenService();
 
-    const user = await authenticateUser.execute({ email, password });
+    const user = await authenticateUser.execute({ username, password });
 
     const token = await generateToken.execute({ id: user._id });
 
     return response.status(201).json({
       user: {
         id: user._id,
-        email: user.email,
+        username: user.username,
+        mobileToken: user.mobileToken,
       },
       token,
     });
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { password } = request.body;
+    const { password, mobileToken } = request.body;
 
     const updateUser = new UpdateUserService();
 
     const user = await updateUser.execute({
       id: response.locals.id,
       password,
+      mobileToken,
     });
 
     return response.status(201).json({
       user: {
         id: user.id,
-        email: user.email,
+        username: user.username,
+        mobileToken: user.mobileToken,
       },
     });
   }
@@ -100,13 +105,14 @@ class UsersController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { email } = request.params;
+    const { username } = request.params;
     const findOneUser = new FindOneUserService();
 
-    const user = await findOneUser.execute({ email });
+    const user = await findOneUser.execute({ username });
 
     return response.status(200).json({
-      email: user.email,
+      username: user.username,
+      mobileToken: user.mobileToken,
     });
   }
 }

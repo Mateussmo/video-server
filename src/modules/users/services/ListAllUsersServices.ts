@@ -2,7 +2,8 @@ import Users from '../schemas/Users';
 
 interface IUserInterface {
   id: string;
-  email: string;
+  username: string;
+  mobileToken?: string;
 }
 
 class ListAllUsersService {
@@ -11,7 +12,8 @@ class ListAllUsersService {
 
     return users.map((user: IUserInterface) => ({
       id: user.id,
-      email: user.email,
+      username: user.username,
+      mobileToken: user.mobileToken,
     }));
   }
 }

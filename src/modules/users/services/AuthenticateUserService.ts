@@ -3,16 +3,17 @@ import AppError from '../../../shared/errors/AppError';
 import Users, { IUsersInterface } from '../schemas/Users';
 
 interface IRequestDTO {
-  email: string;
+  username: string;
   password: string;
+  mobileToken?: string;
 }
 
 class AuthenticateUserService {
   public async execute({
-    email,
+    username,
     password,
   }: IRequestDTO): Promise<IUsersInterface> {
-    const user = await Users.findOne({ email });
+    const user = await Users.findOne({ username });
 
     if (!user) throw new AppError('This username does not exists!', 404);
 

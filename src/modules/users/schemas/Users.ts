@@ -2,19 +2,23 @@ import { model, Document, Schema } from 'mongoose';
 
 export interface IUsersInterface extends Document {
   id: string;
-  email: string;
+  username: string;
   password: string;
+  mobileToken?: string;
 }
 
 const UsersSchema = new Schema(
   {
-    email: {
+    username: {
       type: String,
       required: true,
     },
     password: {
       type: String,
       required: true,
+    },
+    mobileToken: {
+      type: String,
     },
   },
   {
