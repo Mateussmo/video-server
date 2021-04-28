@@ -3,17 +3,16 @@ import Users from '../schemas/Users';
 
 interface IUserInterface {
   id: string;
-  username: string;
-  mobileToken?: string;
+  email: string;
 }
 
 interface IRequestDTO {
-  username: string;
+  email: string;
 }
 
 class FindOneUsersService {
-  public async execute({ username }: IRequestDTO): Promise<IUserInterface> {
-    const user = await Users.findOne({ username });
+  public async execute({ email }: IRequestDTO): Promise<IUserInterface> {
+    const user = await Users.findOne({ email });
 
     if (!user) throw new AppError('This user does not exists!', 404);
 

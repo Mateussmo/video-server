@@ -10,7 +10,6 @@ export default async function UpdateUserValidation(
   try {
     const schema = yup.object().shape({
       password: yup.string().required().strict(true),
-      mobileToken: yup.string().strict(true),
     });
 
     await schema.validate(request.body, { abortEarly: false });

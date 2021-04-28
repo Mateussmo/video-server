@@ -3,27 +3,24 @@ import AppError from '../../../shared/errors/AppError';
 import Users, { IUsersInterface } from '../schemas/Users';
 
 interface IRequestDTO {
-  username: string;
+  email: string;
   password: string;
-  mobileToken?: string;
 }
 
 class CreateUserService {
   public async execute({
-    username,
+    email,
     password,
-    mobileToken,
   }: IRequestDTO): Promise<IUsersInterface> {
-    const user = await Users.findOne({ username });
+    const user = await Users.findOne({ email });
 
     if (user) {
       throw new AppError('This username already exists!', 409);
     }
 
     const userCreated = await Users.create({
-      username,
+      email,
       password: await bcrypt.hash(password, 10),
-      mobileToken,
     });
 
     return userCreated;

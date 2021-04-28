@@ -9,9 +9,8 @@ export default async function CreateUserValidation(
 ): Promise<void> {
   try {
     const schema = yup.object().shape({
-      username: yup.string().required().strict(true),
+      email: yup.string().required().strict(true),
       password: yup.string().required().strict(true),
-      mobileToken: yup.string().strict(true),
     });
 
     await schema.validate(request.body, { abortEarly: false });

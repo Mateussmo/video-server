@@ -1,11 +1,5 @@
 import mongoose from 'mongoose';
 
-import mongoConfig from '../../config/mongo';
-
-const mongoUserPass = mongoConfig.username
-  ? `${mongoConfig.username}:${mongoConfig.password}@`
-  : '';
-
 class Database {
   public mongoConnection: Promise<mongoose.Mongoose>;
 
@@ -14,7 +8,7 @@ class Database {
   }
 
   private init(): void {
-    this.mongoConnection = mongoose.connect(`mongodb://${mongoUserPass}${mongoConfig.host}:${mongoConfig.port}/${mongoConfig.database}`, {
+    this.mongoConnection = mongoose.connect(process.env.MONGO_DATABASE || '', {
       useNewUrlParser: true,
       useFindAndModify: false,
       useUnifiedTopology: true,

@@ -25,8 +25,8 @@ router.patch(
 
 router.delete('/:userId', ensuredAuthenticated, usersController.delete);
 
-router.get('/', usersController.find);
+router.get('/', ensuredAuthenticated, usersController.find);
 
-router.get('/:username', usersController.findOne);
+router.get('/:username', ensuredAuthenticated, usersController.findOne);
 
 export default router;
