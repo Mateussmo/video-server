@@ -14,12 +14,15 @@ class Database {
   }
 
   private init(): void {
-    this.mongoConnection = mongoose.connect(`mongodb://${mongoUserPass}${mongoConfig.host}:${mongoConfig.port}/${mongoConfig.database}`, {
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    });
+    this.mongoConnection = mongoose.connect(
+      `mongodb://${mongoUserPass}${mongoConfig.host}:${mongoConfig.port}/${mongoConfig.database}`,
+      {
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+      },
+    );
   }
 }
 
